@@ -38,6 +38,7 @@
 }
 
 .sidebar footer a {
+    font-size: 14px;
     width: 100%;
     background: transparent;
     color: var(--green-500);
@@ -51,11 +52,21 @@
     text-decoration: none;
 }
 
+.icon {
+    margin-right: 0.4rem;
+}
+
 .avatar {
     width: calc(3rem + 12px);
     height: calc(3rem + 12px);
-    border-radius: 50%;
-    border: 5px solid var(--green-500);
-    outline: 2px solid var(--gray-600);
+    border-radius: 20%;
+    border: 5px solid var(--gray-600);
+    outline: 2px solid var(--green-500);
 
+}
+
+.sidebar footer a:hover {
+    background: var(--green-500);
+    color: var(--white);
+    transition: color 0.2s, background-color 0.2s;
 }
