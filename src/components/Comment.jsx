@@ -1,13 +1,16 @@
 import styles from './Comment.module.css'
 import {ThumbsUp, Trash} from "phosphor-react";
+import {Avatar} from "./Avatar.jsx";
 
 
 const Comment = () => {
 	return (
 		<div className={styles.comment}>
-			<img className={styles.avatar}
-			     src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
-			     alt="image"
+			<Avatar
+				hasBorder={false}
+				className={styles.avatar}
+				src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+				alt="image"
 			/>
 
 			<div className={styles.commentBox}>

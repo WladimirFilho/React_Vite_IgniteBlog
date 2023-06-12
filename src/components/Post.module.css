@@ -31,6 +31,7 @@
 }
 
 .nameBlock {
+    margin-left: 1rem;
     display: flex;
     flex-direction: column;
     gap: .3rem;
@@ -132,3 +133,4 @@ a:hover {
 .commentList {
     margin-top: 2rem;
 }
+
