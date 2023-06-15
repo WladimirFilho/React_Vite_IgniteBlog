@@ -3,9 +3,36 @@ import { format } from "date-fns";
 import styles from "./Post.module.css";
 import Comment from "./Comment.jsx";
 import { Avatar } from "./Avatar.jsx";
+import { useState } from "react";
+
+// To create a new post:
+// Set a state of an array empty
+// Give a attribute name with a name to the text area inside the form
+// Store the value of the text area using event.target.nameGiven.value - That will give you the value form that text area.
+// Call a new function in the onSubmit of the form
+// In the function, setState for the spread (...) plus the new variable for the new text inside text area
+// Show that using a map function
 
 export function Post({ author, publishedAt }) {
+  // TODO fix date format using date-fns. Already installed
   // const dateFormatted = format(publishedAt, "HH:mmh d llll");
+
+  // Set state New port textarea
+
+  const [comments, setComments] = useState(["My first post"]);
+  const [newCommentText, setNewCommentText] = useState("");
+
+  function handleNewCommentChange() {
+    setNewCommentText(event.target.value);
+  }
+
+  function handleCreateNewComment() {
+    event.preventDefault();
+
+    setComments([...comments, newCommentText]);
+
+    setNewCommentText("");
+  }
 
   return (
     <article className={styles.post}>
@@ -23,7 +50,7 @@ export function Post({ author, publishedAt }) {
             <p>{author.role}</p>
           </div>
         </div>
-        <time>{publishedAt}</time>
+        {/* <time>{publishedAt}</time> */}
       </header>
 
       <section className={styles.content}>
@@ -46,19 +73,23 @@ export function Post({ author, publishedAt }) {
         </div>
 
         {/*    feedback section   */}
-        <form className={styles.commentForm}>
+        <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
           <strong>Leave you comment</strong>
-          <textarea placeholder="Leave a comment" />
+          <textarea
+            value={newCommentText}
+            onChange={handleNewCommentChange}
+            name="comment"
+            placeholder="Leave a comment"
+          />
           <footer>
             <button type="submit">Submit</button>
           </footer>
         </form>
 
         <div className={styles.commentList}>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {comments.map((comment, index) => (
+            <Comment key={index} content={comment} />
+          ))}
         </div>
       </section>
     </article>
