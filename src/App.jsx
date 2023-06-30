@@ -62,7 +62,6 @@ function App() {
               />
             );
           })}
-          ,
         </main>
       </div>
     </div>

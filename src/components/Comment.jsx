@@ -2,7 +2,12 @@ import styles from "./Comment.module.css";
 import { ThumbsUp, Trash } from "phosphor-react";
 import { Avatar } from "./Avatar.jsx";
 
-const Comment = ({ content }) => {
+const Comment = ({ content, onDeleteComment }) => {
+  function handleDeleteComment() {
+    console.log("Pressed delete comment btn");
+    onDeleteComment(content);
+  }
+
   return (
     <div className={styles.comment}>
       <Avatar
@@ -21,10 +26,10 @@ const Comment = ({ content }) => {
                 title="Published at 15h30 1 - May - 2022"
                 dateTime="2022-05-11 15:30:00"
               >
-                Published 1 day ago
+                // Todo: Set date of the post
               </time>
             </div>
-            <button title="Delete post">
+            <button onClick={handleDeleteComment} title="Delete post">
               <Trash size={24}></Trash>
             </button>
           </header>

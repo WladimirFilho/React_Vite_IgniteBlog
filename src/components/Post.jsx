@@ -13,12 +13,10 @@ import { useState } from "react";
 // In the function, setState for the spread (...) plus the new variable for the new text inside text area
 // Show that using a map function
 
-export function Post({ author, publishedAt }) {
+export function Post({ author, content }) {
   // TODO fix date format using date-fns. Already installed
-  // const dateFormatted = format(publishedAt, "HH:mmh d llll");
 
   // Set state New port textarea
-
   const [comments, setComments] = useState(["My first post"]);
   const [newCommentText, setNewCommentText] = useState("");
 
@@ -32,6 +30,16 @@ export function Post({ author, publishedAt }) {
     setComments([...comments, newCommentText]);
 
     setNewCommentText("");
+  }
+
+  // Function: To delete comments from the post
+  // 1: Filter the list of comments
+  // 2: Returns a new list without the comment passed by attribute
+  function deleComment(commentToDelete) {
+    const commentsListWithoutDeleteOne = comments.filter((comment) => {
+      return comment !== commentToDelete;
+    });
+    setComments(commentsListWithoutDeleteOne);
   }
 
   return (
@@ -55,22 +63,18 @@ export function Post({ author, publishedAt }) {
 
       <section className={styles.content}>
         {/*  text post  */}
-        <p>Hey friends 👋</p>
-        <p>
-          I just uploaded another project to my portfolio. It is a project I did
-          at NLW Return, an event by Rocketseat. Project name is DoctorCare 🚀
-        </p>
 
-        {/*  links and tags  */}
-        <div className={styles.linksWrapper}>
-          <p>
-            👉 <a href="#">jane.design/doctorcare</a>
-          </p>
-          <p>
-            <a href="">#novoprojeto</a> <a href="">#nlw </a>{" "}
-            <a href="">#rocketseat</a>{" "}
-          </p>
-        </div>
+        {content.map((line) => {
+          if (line.type === "paragraph") {
+            return <p key={line.content}>{line.content}</p>;
+          } else if (line.link === "link") {
+            return (
+              <p key={line.content}>
+                <a href="#">{line.content}</a>
+              </p>
+            );
+          }
+        })}
 
         {/*    feedback section   */}
         <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
@@ -87,8 +91,12 @@ export function Post({ author, publishedAt }) {
         </form>
 
         <div className={styles.commentList}>
-          {comments.map((comment, index) => (
-            <Comment key={index} content={comment} />
+          {comments.map((comment) => (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleComment}
+            />
           ))}
         </div>
       </section>
